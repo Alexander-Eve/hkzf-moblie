@@ -1,0 +1,27 @@
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.home {
+  .tabar {
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+  }
+}
+
+body {
+  font-family: 'Microsoft YaHei', '宋体', Tahoma, Arial, sans-serif;
+  background-color: #fff;
+  color: #333;
+}
