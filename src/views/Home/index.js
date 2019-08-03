@@ -33,13 +33,24 @@ export default class Home extends React.Component {
         selectedIcon={<i className={`iconfont ${v.icon}`} />}
         selected={this.state.selectedTab === v.path}
         onPress={() => {
-          this.setState({
-            selectedTab: v.path
-          })
           this.props.history.push(v.path)
         }}
       />
     ))
+  }
+
+  componentDidUpdate(props) {
+    // 这是home组件更新前的props
+    // console.log(props)
+    // 这是home组件更新后的props
+    // 因为props的改变 所以底部的高亮不能跟随地址栏而改变
+    // 但是在componentDidUpdate 生命周期之中不建议设置state 如果要设置需要给一个条件
+    // console.log(this.props)
+    // 当两个pathname 不同时 就改变state的selectedTab的值
+    props.location.pathname !== this.props.location.pathname &&
+      this.setState({
+        selectedTab: this.props.location.pathname
+      })
   }
   render() {
     return (

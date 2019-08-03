@@ -8,6 +8,7 @@ import {
 import Home from './views/Home'
 import City from './views/City'
 import Map from './views/Map'
+import NotFound from './common/404'
 
 export default class App extends React.Component {
   render() {
@@ -16,10 +17,11 @@ export default class App extends React.Component {
         <div className="app">
           <Switch>
             {/* <Route exact path="/" component={Home} /> */}
+            <Redirect exact from="/" to="/home" />
             <Route path="/home" component={Home} />
             <Route path="/map" component={Map} />
             <Route path="/city" component={City} />
-            <Redirect from="/" to="/home/homes" />
+            <Route component={NotFound} />
           </Switch>
         </div>
       </Router>

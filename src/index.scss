@@ -3,12 +3,35 @@
   padding: 0;
   list-style: none;
   box-sizing: border-box;
+  touch-action: pan-y;
 }
 
 html,
 body,
 #root {
   height: 100%;
+}
+
+a {
+  color: #949494;
+}
+
+.homes {
+  padding-bottom: 50px;
+
+  .nav {
+    padding: 10px 0;
+
+    .am-flexbox {
+      text-align: center;
+    }
+
+    img {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 7px;
+    }
+  }
 }
 
 .home {
