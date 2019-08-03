@@ -7,12 +7,39 @@ import News from './News'
 import Mine from './Mine'
 import NotFound from '../../common/404'
 
+// 因为底部导航是差不多一致的 可以提取出不同的参数然后使用循环创建
+// 不能写在state中  会增加state的负重  写死一个数据列表 把导航不同的数据提取到列表中
+const getList = [
+  { title: '首页', icon: 'icon-ind', path: '/home' },
+  { title: '找房', icon: 'icon-findHouse', path: '/home/house' },
+  { title: '资讯', icon: 'icon-infom', path: '/home/news' },
+  { title: '我的', icon: 'icon-my', path: '/home/mine' }
+]
+
 export default class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       selectedTab: props.location.pathname
     }
+  }
+  // 把底部导航的渲染封装到函数里面 需要时调用
+  navList() {
+    return getList.map(v => (
+      <TabBar.Item
+        title={v.title}
+        key={v.title}
+        icon={<i className={`iconfont ${v.icon}`} />}
+        selectedIcon={<i className={`iconfont ${v.icon}`} />}
+        selected={this.state.selectedTab === v.path}
+        onPress={() => {
+          this.setState({
+            selectedTab: v.path
+          })
+          this.props.history.push(v.path)
+        }}
+      />
+    ))
   }
   render() {
     return (
@@ -31,59 +58,7 @@ export default class Home extends React.Component {
             barTintColor="white"
             noRenderContent
           >
-            <TabBar.Item
-              title="首页"
-              key="首页"
-              icon={<i className="iconfont icon-ind" />}
-              selectedIcon={<i className="iconfont icon-ind" />}
-              selected={this.state.selectedTab === 'home'}
-              onPress={() => {
-                this.setState({
-                  selectedTab: 'home'
-                })
-                this.props.history.push('/home')
-              }}
-            />
-            <TabBar.Item
-              icon={<i className="iconfont icon-findHouse" />}
-              selectedIcon={<i className="iconfont icon-findHouse" />}
-              title="找房"
-              key="找房"
-              selected={this.state.selectedTab === '/home/house'}
-              onPress={() => {
-                this.setState({
-                  selectedTab: '/home/house'
-                })
-                this.props.history.push('/home/house')
-              }}
-            />
-            <TabBar.Item
-              icon={<i className="iconfont icon-infom" />}
-              selectedIcon={<i className="iconfont icon-infom" />}
-              title="资讯"
-              key="资讯"
-              dot
-              selected={this.state.selectedTab === '/home/news'}
-              onPress={() => {
-                this.setState({
-                  selectedTab: '/home/news'
-                })
-                this.props.history.push('/home/news')
-              }}
-            />
-            <TabBar.Item
-              icon={<i className="iconfont icon-my" />}
-              selectedIcon={<i className="iconfont icon-my" />}
-              title="我的"
-              key="我的"
-              selected={this.state.selectedTab === '/home/mine'}
-              onPress={() => {
-                this.setState({
-                  selectedTab: '/home/mine'
-                })
-                this.props.history.push('/home/mine')
-              }}
-            />
+            {this.navList()}
           </TabBar>
         </div>
       </div>
